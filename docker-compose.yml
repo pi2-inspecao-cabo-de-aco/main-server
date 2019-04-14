@@ -1,0 +1,38 @@
+version: '3.6'
+services:
+
+  postgres:
+    image: postgres:alpine
+    restart: always
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: "legal-pro_development"
+    networks:
+      - legal-pro
+
+  server:
+    build:
+      context: .
+    environment:
+      NODE_ENV: development
+      PG_HOST: postgres
+      PG_USER: "postgres"
+    ports:
+      - "4000:4000"
+    networks:
+      - legal-pro
+    depends_on:
+      - "postgres"
+    stdin_open: true
+    volumes:
+      - ./:/server
+      - /server/node_modules
+
+networks:
+  legal-pro:
+    name: legal-pro
+
+
+volumes:
+  db_data: {}

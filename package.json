@@ -1,0 +1,47 @@
+{
+  "name": "legal-pro-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@gitlab.com:LegalLabs/legal-pro/legal-pro-api.git",
+  "author": "Vitor Borges <vitorbertulucci@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "migrate": "yarn knex migrate:latest",
+    "start": "yarn nodemon -w ./src -w ./*.js -w ./seeds -w ./migrations --exec \"eslint src/**/*.js && node -r esm src/index.js\""
+  },
+  "dependencies": {
+    "esm": "^3.2.6",
+    "express": "^4.16.4",
+    "fs-extra": "^7.0.1",
+    "graphql-yoga": "^1.17.4",
+    "knex": "^0.16.3",
+    "multer": "^1.4.1",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "ava": "^1.2.1",
+    "ava-playback": "^0.0.15",
+    "eslint": "^5.14.1",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "nodemon": "^1.18.10"
+  },
+  "ava": {
+    "files": [
+      "test/specs/*.js"
+    ],
+    "sources": [],
+    "concurrency": 5,
+    "verbose": true,
+    "failFast": true,
+    "failWithoutAssertions": false,
+    "require": [
+      "esm",
+      "ava-playback"
+    ],
+    "playbacks": "test/fixtures"
+  }
+}
