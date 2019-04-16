@@ -23,6 +23,7 @@ async function main () {
 
   let options = {
     endpoint: '/graphql',
+    subscriptions: '/graphql',
     uploads: {
       maxFieldSize: 1000,
       maxFileSize: 10000000,
