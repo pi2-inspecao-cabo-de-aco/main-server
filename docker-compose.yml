@@ -7,9 +7,9 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: "legal-pro_development"
+      POSTGRES_DB: "main-server"
     networks:
-      - legal-pro
+      - pi2
 
   server:
     build:
@@ -21,7 +21,7 @@ services:
     ports:
       - "4000:4000"
     networks:
-      - legal-pro
+      - pi2
     depends_on:
       - "postgres"
     stdin_open: true
@@ -30,8 +30,8 @@ services:
       - /server/node_modules
 
 networks:
-  legal-pro:
-    name: legal-pro
+  pi2:
+    name: pi2
 
 
 volumes:
