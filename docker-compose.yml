@@ -20,6 +20,7 @@ services:
       PG_USER: "postgres"
     ports:
       - "4000:4000"
+      - "21:21"
     networks:
       - pi2
     depends_on:
