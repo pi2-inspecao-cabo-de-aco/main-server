@@ -15,7 +15,8 @@ const defaultTrueValues = [ undefined, '' ].concat(trueValues)
 let config = {
   // Node environment
   env: NODE_ENV,
-  // Connections retries
+  // FTP config
+  myIp: process.env.MY_IP || 'localhost',
   retries: process.env.CONNECTIONS_RETRIES || 5,
   // Session Token
   secret: process.env.SECRET || 'secret',

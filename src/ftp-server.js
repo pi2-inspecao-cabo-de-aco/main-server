@@ -1,12 +1,10 @@
 import FtpSrv from 'ftp-srv'
-import Path from 'path'
-import fsx from 'fs-extra'
+import config from './config'
 
 async function initFtpServer () {
   let server = new FtpSrv({
-    url: 'ftp://localhost:3003',
-    pasv_url: '127.0.0.1',
-    pasv_range: '2500-8500'
+    url: `ftp://${config.myIp}:30003`,
+    pasv_url: '127.0.0.1'
   })
 
   server.on('login', ({ connection, username, password }, resolve, reject) => {
@@ -18,7 +16,6 @@ async function initFtpServer () {
     connection.on('error', console.log)
     resolve()
   })
-
 
   server.on('client-error', ({ context, error }) => {
     console.log(context, error)

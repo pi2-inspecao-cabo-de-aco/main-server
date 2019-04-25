@@ -44,7 +44,7 @@ async function main () {
     try {
       console.log('Initing FTP server...')
       await initFtpServer()
-      console.log('FTP server started. Listening on ftp://localhost:21')
+      console.log('FTP server is running on ftp://localhost:30003')
       break
     } catch (err) {
       console.err('Error on creating server.', err)
