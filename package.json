@@ -1,8 +1,8 @@
 {
-  "name": "legal-pro-api",
+  "name": "main-server",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@gitlab.com:LegalLabs/legal-pro/legal-pro-api.git",
+  "repository": "git@github.com:pi2-inspecao-cabo-de-aco/main-server.git",
   "author": "Vitor Borges <vitorbertulucci@gmail.com>",
   "license": "MIT",
   "scripts": {
