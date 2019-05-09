@@ -34,7 +34,7 @@ let config = {
       port: process.env.PG_PORT || 5432,
       user: process.env.PG_USER || 'postgres',
       password: process.env.PG_PASSWORD || process.env.PG_PASS || 'postgres',
-      database: process.env.PG_DATABASE || `legal-pro_${NODE_ENV}`
+      database: process.env.PG_DATABASE || `main-server_${NODE_ENV}`
     },
     migrations: {
       tableName: 'knex_migrations'

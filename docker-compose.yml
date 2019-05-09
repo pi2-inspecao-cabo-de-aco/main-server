@@ -7,7 +7,7 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
     environment:
-      POSTGRES_DB: "main-server"
+      POSTGRES_DB: "main-server_development"
     networks:
       - pi2
 
