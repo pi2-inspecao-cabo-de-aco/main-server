@@ -3,7 +3,7 @@ function up (knex)  {
     table.uuid('id').primary()
     table.timestamp('start')
     table.timestamp('end')
-    table.string('alertLevel')
+    table.string('alert_level')
     table.timestamps(false, true)
   })
 }
