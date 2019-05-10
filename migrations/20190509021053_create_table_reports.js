@@ -1,9 +1,9 @@
 function up (knex)  {
   return knex.schema.createTable('reports', (table) => {
     table.uuid('id').primary()
-    table.boolean('break')
-    table.boolean('corrosion')
-    table.boolean('distortion')
+    table.timestamp('start')
+    table.timestamp('end')
+    table.string('alertLevel')
     table.timestamps(false, true)
   })
 }
