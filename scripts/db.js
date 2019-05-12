@@ -1,7 +1,6 @@
-import knex from 'knex'
 import { Client } from 'pg'
+import { knexInstance } from '../src/db'
 import config from '../src/config'
-let knexInstance = knex(config.knex)
 let db = config.knex.connection
 let rootClient = new Client(Object.assign({}, db, { database: 'postgres' }))
 rootClient.connect()

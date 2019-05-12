@@ -1,4 +1,4 @@
-import { knexInstance } from '../../scripts/db'
+import { knexInstance } from '../db'
 import uuid from 'uuid/v4'
 
 export default {
