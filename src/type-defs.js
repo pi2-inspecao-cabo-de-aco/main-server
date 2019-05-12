@@ -17,8 +17,8 @@ scalar Upload
 
 # Queries
 type Query {
-  info: String!
   fileUpload(filename: String!): String!
+  cable(id: ID!): Cable
 }
 
 # Mutations
