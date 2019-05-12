@@ -14,4 +14,7 @@ type Query {
 }
 
 # Mutations
+type Mutation {
+  createCable (size: Int!, diameter: Int!, lifespan: Int!): ID
+}
 `
