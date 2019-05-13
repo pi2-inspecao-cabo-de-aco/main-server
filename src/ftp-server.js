@@ -10,7 +10,10 @@ async function initFtpServer () {
   server.on('login', ({ connection, username, password }, resolve, reject) => {
     console.log('Resolving connection. Connected.', username, password)
     connection.on('STOR', (err, filename) => {
-      console.log(err, filename)
+      if (err) {
+        console.log(`--------> Error: ${err.message} <--------`)
+      }
+      console.log(`---> Arquivo recebido: ${filename}`)
     })
 
     connection.on('error', console.log)
