@@ -1,7 +1,6 @@
-import knex from 'knex'
 import { Client } from 'pg'
+import { knexInstance } from '../src/db'
 import config from '../src/config'
-let k = knex(config.knex)
 let db = config.knex.connection
 let rootClient = new Client(Object.assign({}, db, { database: 'postgres' }))
 rootClient.connect()
@@ -33,7 +32,7 @@ async function recreateDatabase () {
 async function formatAndCreate () {
   try {
     await recreateDatabase()
-    await k.migrate.latest()
+    await knexInstance.migrate.latest()
   } catch (err) {
     console.log(err)
   }
@@ -43,7 +42,7 @@ async function migrate () {
   try {
     await createDatabase()
     console.log('DB created. Migrating...')
-    await k.migrate.latest()
+    await knexInstance.migrate.latest()
   } catch (err) {
     console.log(err)
   }
@@ -75,3 +74,7 @@ database(process.argv[3])
     console.log(err)
     process.exit(1)
   })
+
+export {
+  knexInstance
+}

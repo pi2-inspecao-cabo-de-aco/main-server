@@ -1,8 +1,17 @@
 import processFile from './queries/process-file'
+import cableQueries from './queries/cables'
+import cableMutations from './mutations/cables'
+import reportQueries from './queries/reports'
+import reportMutations from './mutations/reports'
 
 export default {
   Query: {
-    info: () => `This is the API of a Hackernews Clone`,
-    ...processFile
+    ...processFile,
+    ...cableQueries,
+    ...reportQueries
+  },
+  Mutation: {
+    ...cableMutations,
+    ...reportMutations
   }
 }
