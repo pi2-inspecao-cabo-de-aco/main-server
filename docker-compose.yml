@@ -16,10 +16,12 @@ services:
       context: .
     environment:
       NODE_ENV: development
+      MY_IP: server
       PG_HOST: postgres
       PG_USER: "postgres"
     ports:
       - "4000:4000"
+      - "30003:30003"
     networks:
       - pi2
     depends_on:

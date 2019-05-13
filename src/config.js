@@ -15,17 +15,15 @@ const defaultTrueValues = [ undefined, '' ].concat(trueValues)
 let config = {
   // Node environment
   env: NODE_ENV,
+  // FTP config
+  myIp: process.env.MY_IP || 'localhost',
+  retries: process.env.CONNECTIONS_RETRIES || 5,
   // Session Token
   secret: process.env.SECRET || 'secret',
-  expireTime: process.env.TOKEN_EXPIRATION_TIME || '30 days',
   // Logger
   logify: NODE_ENV === 'production' || NODE_ENV === 'testing'
     ? trueValues.indexOf(process.env.LOGIFY) !== -1
     : defaultTrueValues.indexOf(process.env.LOGIFY) !== -1,
-  gitlab: {
-    projectId: process.env.GITLAB_REPORT_PROJECT_ID || '10362863',
-    privateToken: process.env.GITLAB_PRIVATE_TOKEN
-  },
   // Knex and Postgres
   knex: {
     client: 'postgresql',
