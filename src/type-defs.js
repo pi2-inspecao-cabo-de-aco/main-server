@@ -11,6 +11,8 @@ type Cable {
   diameter: Int
   size: Int
   general_state: String
+  created_at: String
+  updated_at: String
 }
 
 type Report {
@@ -18,6 +20,8 @@ type Report {
   start: String
   end: String
   alert_level: String
+  created_at: String
+  updated_at: String
 }
 
 scalar Upload
@@ -26,6 +30,8 @@ scalar Upload
 type Query {
   fileUpload (filename: String!): String!
   cable (id: ID!): Cable
+  report (id: ID!): Report
+  reports: [Report]
 }
 
 # Mutations

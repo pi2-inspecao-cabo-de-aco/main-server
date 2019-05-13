@@ -24,7 +24,8 @@ export default {
       report = await report
         .update({
           end: new Date(),
-          alert_level: alertLevel
+          alert_level: alertLevel,
+          updated_at: new Date()
         })
         .returning('*')
 

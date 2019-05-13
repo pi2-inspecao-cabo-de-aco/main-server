@@ -26,7 +26,8 @@ export default {
       cable = await cable
         .update({
           lifespan: lifespan,
-          general_state: generalState
+          general_state: generalState,
+          updated_at: new Date()
         })
         .returning('*')
 
