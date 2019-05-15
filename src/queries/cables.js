@@ -10,5 +10,14 @@ export default {
     } catch (err) {
       throw new Error(err.message)
     }
+  },
+  cables: async (root, args, context, info) => {
+    try {
+      let cables = await knexInstance('cables')
+
+      return cables
+    } catch (err) {
+      throw new Error(err.message)
+    }
   }
 }
