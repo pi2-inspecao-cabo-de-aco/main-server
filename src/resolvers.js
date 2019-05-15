@@ -3,6 +3,7 @@ import cableQueries from './queries/cables'
 import cableMutations from './mutations/cables'
 import reportQueries from './queries/reports'
 import reportMutations from './mutations/reports'
+import analysisMutations from './mutations/analysis'
 
 export default {
   Query: {
@@ -12,6 +13,7 @@ export default {
   },
   Mutation: {
     ...cableMutations,
-    ...reportMutations
+    ...reportMutations,
+    ...analysisMutations
   }
 }
