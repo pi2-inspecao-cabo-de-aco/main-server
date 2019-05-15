@@ -45,6 +45,7 @@ type Query {
   cables: [Cable]
   report (id: ID!): Report
   reports: [Report]
+  reportAnalysis(reportId: ID!): [Analysis]
 }
 
 # Mutations
