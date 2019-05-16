@@ -2,12 +2,13 @@ import { knexInstance } from '../db'
 import uuid from 'uuid/v4'
 
 export default {
-  createCable: async (root, { size, diameter, lifespan }, context, info) => {
+  createCable: async (root, { name, size, diameter, lifespan }, context, info) => {
     try {
       let cableId = await knexInstance('cables')
         .returning('id')
         .insert({
           id: uuid(),
+          name: name,
           size: size,
           diameter: diameter,
           lifespan: lifespan

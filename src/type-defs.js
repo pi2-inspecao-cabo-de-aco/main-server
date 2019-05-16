@@ -7,6 +7,7 @@ type File {
 
 type Cable {
   id: ID
+  name: String
   lifespan: Int
   diameter: Int
   size: Int
@@ -50,7 +51,7 @@ type Query {
 
 # Mutations
 type Mutation {
-  createCable (size: Int!, diameter: Int!, lifespan: Int!): ID
+  createCable (name: String, size: Int!, diameter: Int!, lifespan: Int!): ID
   updateCable (id: ID!, lifespan: Int, generalState: String): Cable
   deleteCable (id: ID!): Boolean
   createReport: ID
