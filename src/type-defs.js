@@ -57,7 +57,7 @@ type Mutation {
   createReport: ID
   updateReport (id: ID!, alertLevel: String): Report
   deleteReport (id: ID!): Boolean
-  createAnalysis (positionStart: Int, positionEnd: Int, reportId: ID, cableId: ID): ID
+  createAnalysis (positionStart: Int, positionEnd: Int, reportId: ID, cableId: ID, image_path: String): ID
   updateAnalysis (id: ID!, imagePath: String, state: String): Analysis
   deleteAnalysis (id: ID!): Boolean
 }

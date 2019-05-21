@@ -29,7 +29,7 @@ async function infoControll (filename = '1557707265663-1.zip') {
       throw new Error(`------> Erro inesperado ao gerar imagem concatenada: ${stderr} <------`)
     }
     // TODO: use image size to calculate poitionStart and positionEnd
-    await createAnalysis({ positionStart: 0, positionEnd: 500 })
+    await createAnalysis({ positionStart: 0, positionEnd: 500, image_path: folder + '/merged-image.png' })
   }
 }
 

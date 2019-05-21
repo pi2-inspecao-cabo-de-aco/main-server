@@ -2,6 +2,7 @@
 import { GraphQLServer, PubSub } from 'graphql-yoga'
 import typeDefs from './type-defs'
 import resolvers from './resolvers'
+import express from 'express'
 
 // Global config
 import config from './config'
@@ -62,6 +63,7 @@ async function main () {
   }
 
   server.express.use('/file-upload', upload())
+  server.express.use('/public', express.static('public'))
 
   server.start(options, opts => {
     console.log(`Server is running on http://localhost:${opts.port}`)
