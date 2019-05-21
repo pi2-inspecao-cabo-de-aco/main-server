@@ -2,7 +2,14 @@ FROM node:alpine
 
 WORKDIR /server
 
-# RUN apk add curl
+RUN apk update && apk add gcc \
+                          python3 \
+                          py-pip \
+                          py3-pillow
+
+RUN apk add make automake g++ subversion python3-dev
+
+RUN pip3 install numpy glob
 
 COPY ./package.json /server/
 

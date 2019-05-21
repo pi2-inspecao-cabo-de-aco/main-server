@@ -1,23 +1,9 @@
 import { knexInstance } from '../db'
-import uuid from 'uuid/v4'
+import { createAnalysis as createHelper } from '../helpers/analysis'
 
 export default {
   createAnalysis: async (root, { positionStart, positionEnd, reportId, cableId }, context, info) => {
-    try {
-      let analysisId = await knexInstance('analysis')
-        .returning('id')
-        .insert({
-          id: uuid(),
-          position_start: positionStart,
-          position_end: positionEnd,
-          report_id: reportId,
-          cable_id: cableId
-        })
-
-      return analysisId[0]
-    } catch (err) {
-      throw new Error(err.message)
-    }
+    return createHelper({ positionStart, positionEnd, reportId, cableId })
   },
   updateAnalysis: async (root, { id, imagePath, state }, context, info) => {
     try {
