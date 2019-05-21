@@ -10,6 +10,7 @@
     "db:recreate": "node -r esm scripts/db - 'recreate'",
     "db:formatAndCreate": "node -r esm scripts/db - 'formatAndCreate'",
     "db:migrate": "node -r esm scripts/db - 'migrate'",
+    "seed": "node -r esm seeds/index.js",
     "start": "yarn nodemon -w ./src -w ./*.js -w ./seeds -w ./migrations --exec \"eslint src/**/*.js && node -r esm src/index.js\""
   },
   "dependencies": {

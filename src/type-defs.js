@@ -61,4 +61,9 @@ type Mutation {
   updateAnalysis (id: ID!, imagePath: String, state: String): Analysis
   deleteAnalysis (id: ID!): Boolean
 }
+
+# Subscriptions
+type Subscription {
+  analysisWasCreated: Analysis!
+}
 `

@@ -5,6 +5,7 @@ import reportQueries from './queries/reports'
 import reportMutations from './mutations/reports'
 import analysisQueries from './queries/analysis'
 import analysisMutations from './mutations/analysis'
+import analysisSubscriptions from './subscriptions/analysis'
 
 export default {
   Query: {
@@ -17,5 +18,8 @@ export default {
     ...cableMutations,
     ...reportMutations,
     ...analysisMutations
+  },
+  Subscription: {
+    ...analysisSubscriptions
   }
 }

@@ -1,5 +1,5 @@
 // GraphQL Setup Imports
-import { GraphQLServer } from 'graphql-yoga'
+import { GraphQLServer, PubSub } from 'graphql-yoga'
 import typeDefs from './type-defs'
 import resolvers from './resolvers'
 
@@ -19,12 +19,20 @@ fsx.ensureDirSync(publicDir)
 // FTP Server
 import { initFtpServer } from './ftp-server'
 
+// Set global pubsub
+import { setPubSub } from './helpers/analysis'
+
 const sleep = (timeout) => (new Promise((resolve, reject) => (setTimeout(resolve, timeout))))
 
 async function main () {
+  const pubsub = new PubSub()
+  setPubSub(pubsub)
   const server = new GraphQLServer({
     typeDefs,
-    resolvers
+    resolvers,
+    context: conn => {
+      return { pubsub }
+    }
   })
 
   let options = {
