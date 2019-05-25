@@ -33,8 +33,6 @@ async function infoControll (filename = '1557707265663-1.zip') {
   }
 }
 
-infoControll().then()
-
 export {
   infoControll
 }

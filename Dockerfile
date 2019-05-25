@@ -9,7 +9,7 @@ RUN apk update && apk add gcc \
 
 RUN apk add make automake g++ subversion python3-dev
 
-RUN pip3 install numpy glob
+RUN pip3 install numpy glob3
 
 COPY ./package.json /server/
 
