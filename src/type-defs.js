@@ -1,4 +1,6 @@
 export default `
+scalar DateTime
+
 type File {
   filename: String!
   mimetype: String!
@@ -12,17 +14,17 @@ type Cable {
   diameter: Int
   size: Int
   general_state: String
-  created_at: String
-  updated_at: String
+  created_at: DateTime
+  updated_at: DateTime
 }
 
 type Report {
   id: ID
-  start: String
-  end: String
+  start: DateTime
+  end: DateTime
   alert_level: String
-  created_at: String
-  updated_at: String
+  created_at: DateTime
+  updated_at: DateTime
   cable_id: ID
 }
 
@@ -34,8 +36,8 @@ type Analysis {
   state: String
   report_id: ID
   cable_id: ID
-  created_at: String
-  updated_at: String
+  created_at: DateTime
+  updated_at: DateTime
 }
 
 scalar Upload
