@@ -1,4 +1,6 @@
 export default `
+scalar DateTime
+
 type File {
   filename: String!
   mimetype: String!
@@ -12,17 +14,18 @@ type Cable {
   diameter: Int
   size: Int
   general_state: String
-  created_at: String
-  updated_at: String
+  created_at: DateTime
+  updated_at: DateTime
 }
 
 type Report {
   id: ID
-  start: String
-  end: String
+  start: DateTime
+  end: DateTime
   alert_level: String
-  created_at: String
-  updated_at: String
+  created_at: DateTime
+  updated_at: DateTime
+  cable_id: ID
 }
 
 type Analysis {
@@ -33,8 +36,8 @@ type Analysis {
   state: String
   report_id: ID
   cable_id: ID
-  created_at: String
-  updated_at: String
+  created_at: DateTime
+  updated_at: DateTime
 }
 
 scalar Upload
@@ -45,7 +48,7 @@ type Query {
   cable (id: ID!): Cable
   cables: [Cable]
   report (id: ID!): Report
-  reports: [Report]
+  reports (cableId: ID!): [Report]
   reportAnalysis(reportId: ID!): [Analysis]
 }
 
@@ -54,7 +57,7 @@ type Mutation {
   createCable (name: String, size: Int!, diameter: Int!, lifespan: Int!): ID
   updateCable (id: ID!, lifespan: Int, generalState: String): Cable
   deleteCable (id: ID!): Boolean
-  createReport: ID
+  createReport (cableId: ID!): ID
   updateReport (id: ID!, alertLevel: String): Report
   deleteReport (id: ID!): Boolean
   createAnalysis (positionStart: Int, positionEnd: Int, reportId: ID, cableId: ID, image_path: String): ID

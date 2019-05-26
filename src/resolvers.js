@@ -1,3 +1,4 @@
+import { GraphQLDateTime } from 'graphql-iso-date'
 import processFile from './queries/process-file'
 import cableQueries from './queries/cables'
 import cableMutations from './mutations/cables'
@@ -8,6 +9,7 @@ import analysisMutations from './mutations/analysis'
 import analysisSubscriptions from './subscriptions/analysis'
 
 export default {
+  DateTime: GraphQLDateTime,
   Query: {
     ...processFile,
     ...cableQueries,

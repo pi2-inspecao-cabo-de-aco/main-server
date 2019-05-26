@@ -11,9 +11,10 @@ export default {
       throw new Error(err.message)
     }
   },
-  reports: async (root, args, context, info) => {
+  reports: async (root, { cableId }, context, info) => {
     try {
       let reports = await knexInstance('reports')
+        .where({ cable_id: cableId })
         .orderBy('created_at', 'desc')
 
       return reports

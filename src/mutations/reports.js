@@ -2,13 +2,14 @@ import { knexInstance } from '../db'
 import uuid from 'uuid/v4'
 
 export default {
-  createReport: async (root, args, context, info) => {
+  createReport: async (root, { cableId }, context, info) => {
     try {
       let reportId = await knexInstance('reports')
         .returning('id')
         .insert({
           id: uuid(),
-          start: new Date()
+          start: new Date(),
+          cable_id: cableId
         })
 
       return reportId[0]
