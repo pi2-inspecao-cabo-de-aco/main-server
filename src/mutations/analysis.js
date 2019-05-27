@@ -2,8 +2,8 @@ import { knexInstance } from '../db'
 import { createAnalysis as createHelper } from '../helpers/analysis'
 
 export default {
-  createAnalysis: async (root, { positionStart, positionEnd, reportId, cableId }, context, info) => {
-    return createHelper({ positionStart, positionEnd, reportId, cableId })
+  createAnalysis: async (root, { positionStart, positionEnd, reportId, cableId, imagePath }, context, info) => {
+    return createHelper({ positionStart, positionEnd, reportId, cableId, imagePath })
   },
   updateAnalysis: async (root, { id, imagePath, state }, context, info) => {
     try {
