@@ -44,7 +44,6 @@ scalar Upload
 
 # Queries
 type Query {
-  fileUpload (filename: String!): String!
   cable (id: ID!): Cable
   cables: [Cable]
   report (id: ID!): Report
@@ -60,7 +59,7 @@ type Mutation {
   createReport (cableId: ID!): ID
   updateReport (id: ID!, alertLevel: String): Report
   deleteReport (id: ID!): Boolean
-  createAnalysis (positionStart: Int, positionEnd: Int, reportId: ID, cableId: ID, image_path: String): ID
+  createAnalysis (positionStart: Int, positionEnd: Int, reportId: ID, cableId: ID, imagePath: String): ID
   updateAnalysis (id: ID!, imagePath: String, state: String): Analysis
   deleteAnalysis (id: ID!): Boolean
 }
