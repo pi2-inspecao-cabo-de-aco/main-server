@@ -127,3 +127,15 @@ test.serial('Should delete a cable', async t => {
   let res = await server(DELETE_CABLE, variables)
   t.is(true, res)
 })
+
+test.serial('Should throw an error trying to delete a cable with no UUID param', async t => {
+  let variables = {
+    id: 'wrongId',
+  }
+
+
+  let error = await t.throwsAsync(async () => {
+    await server(DELETE_CABLE, variables) 
+  }, Error)
+  t.truthy(error.message.match('invalid input syntax'))
+})
