@@ -1,7 +1,6 @@
 import test from 'ava'
 import { server } from '../config'
 import { knexInstance } from '../../src/db'
-import { GraphQLError } from 'graphql'
 import uuid from 'uuid/v4'
 
 const INSERT_REPORT = `
