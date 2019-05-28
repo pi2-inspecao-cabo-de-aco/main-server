@@ -3,6 +3,29 @@ import { server } from '../config'
 import { knexInstance } from '../../src/db'
 import uuid from 'uuid/v4'
 
+const GET_REPORT = `
+  query report (
+    $id: ID!
+  ) {
+    report (
+      id: $id
+    ) {
+      id
+      start
+    }
+  }
+`
+const GET_REPORTS = `
+  query reports ($cableId: ID!) {
+    reports (
+      cableId: $cableId
+    ){
+      id
+      start
+    }
+  }
+`
+
 const INSERT_REPORT = `
   mutation createReport (
     $cableId: ID!
@@ -51,7 +74,59 @@ test.before(async t => {
   .returning('*'))[0]
 })
 
-test.serial('Should create a report', async t => {
+// Queries test
+test.serial('query --- Should get a report', async t => {
+  let id = uuid()
+  let report = (await knexInstance('reports').insert({
+    id,
+    start: new Date(),
+    cable_id: cable.id
+  }).returning('*'))[0]
+
+  let res = await server(GET_REPORT, { id })
+  t.is(report.id, res.id)
+})
+
+test.serial('query --- Should throw an error trying to get a report with invalid UUID param', async t => {
+  let error = await t.throwsAsync(async () => {
+    await server(GET_REPORT, { id: 'wrongId' }) 
+  }, Error)
+  t.truthy(error.message.match('invalid input syntax'))
+})
+
+test.serial('query --- Should get cable reports', async t => {
+  let reportObjs = [
+    {
+      id: uuid(),
+      start: new Date(),
+      cable_id: cable.id
+    },
+    {
+      id: uuid(),
+      start: new Date(),
+      cable_id: cable.id
+    },
+    {
+      id: uuid(),
+      start: new Date(),
+      cable_id: cable.id
+    }
+  ]
+  await knexInstance('reports').insert(reportObjs)
+
+  let res = await server(GET_REPORTS, { cableId: cable.id })
+  t.truthy(res.length >= 3)
+})
+
+test.serial('query --- Should throw an error trying to get cable reports with invalid UUID param', async t => {
+  let error = await t.throwsAsync(async () => {
+    await server(GET_REPORTS, { cableId: 'wrongId' }) 
+  }, Error)
+  t.truthy(error.message.match('invalid input syntax'))
+})
+
+// Mutations test
+test.serial('mutation --- Should create a report', async t => {
   let variables = {
     cableId: cable.id
   }
@@ -61,7 +136,7 @@ test.serial('Should create a report', async t => {
   t.is(res, report.id)
 })
 
-test.serial('Should not create a report with wrong params', async t => {
+test.serial('mutation --- Should not create a report with wrong params', async t => {
   let variables = {
     cableId: uuid()
   }
@@ -72,7 +147,7 @@ test.serial('Should not create a report with wrong params', async t => {
   t.truthy(error.message.match('foreign key constraint'))
 })
 
-test.serial('Should update a report', async t => {
+test.serial('mutation --- Should update a report', async t => {
   let report = await knexInstance('reports').first()
   let alertLevel = report.alert_level
   let variables = {
@@ -85,7 +160,7 @@ test.serial('Should update a report', async t => {
   t.is(res.alert_level, 'Normal')
 })
 
-test.serial('Should not update a report with wrong values', async t => {
+test.serial('mutation --- Should not update a report with wrong values', async t => {
   let variables = {
     id: uuid(),
     alertLevel: 'test'
@@ -94,7 +169,7 @@ test.serial('Should not update a report with wrong values', async t => {
   t.is(res, null)
 })
 
-test.serial('Should not update a report invalid UUID param', async t => {
+test.serial('mutation --- Should not update a report invalid UUID param', async t => {
   let variables = {
     id: 'wrongId',
     alertLevel: 'test'
@@ -105,7 +180,7 @@ test.serial('Should not update a report invalid UUID param', async t => {
   t.truthy(error.message.match('invalid input syntax'))
 })
 
-test.serial('Should delete a report', async t => {
+test.serial('mutation --- Should delete a report', async t => {
   let report = await knexInstance('reports').first()
   let variables = {
     id: report.id,
@@ -115,7 +190,7 @@ test.serial('Should delete a report', async t => {
   t.is(true, res)
 })
 
-test.serial('Should not delete a report with wrong ID', async t => {
+test.serial('mutation --- Should not delete a report with wrong ID', async t => {
   let variables = {
     id: uuid(),
   }
@@ -124,7 +199,7 @@ test.serial('Should not delete a report with wrong ID', async t => {
   t.is(false, res)
 })
 
-test.serial('Should throw an error trying to delete a report using no UUID value', async t => {
+test.serial('mutation --- Should throw an error trying to delete a report using no UUID value', async t => {
   let variables = {
     id: 'wrongId',
   }

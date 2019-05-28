@@ -117,7 +117,7 @@ test('query --- Should return analysis based on report_id', async t => {
 
 test('query --- Should throw an error trying to get analysis from non UUID reportId param', async t => {
   let error = await t.throwsAsync(async () => {
-    await server(REPORT_ANALYSIS, { reportId: 'wrongId' }) 
+    await server(REPORT_ANALYSIS, { reportId: 'wrongId' })
   }, Error)
   t.truthy(error.message.match('invalid input syntax'))
 })
