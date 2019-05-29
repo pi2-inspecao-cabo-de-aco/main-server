@@ -92,6 +92,8 @@ main-server/
 
 **migrations:** Aqui, armazena-ze todas as migrações realizadas pelo módulo [Knex](https://knexjs.org/). Esse _query builder_ nos permite gerar todo o `schema` do banco de dados, com as tabelas, seus tipos e relações.
 
+**public:** Contém os arquivos vindos do robô, como fotos, arquivos comprimidos e csvs.
+
 **scripts:** Todo e qualquer `script` a ser executado para realizar alguma ação no banco, formatar algum dado de entrada, configurar ambiente ou coisas afins, devem ser armazenados nesse diretório.
 
 **seed:** Armazenam todos os arquivos que irão popular o banco de dados previamente para o devido desenvolvimento do projeto.
@@ -113,6 +115,8 @@ Para rodar os testes execute o comando:
 docker-compose exec server yarn test
 ```
 Após rodar os testes, para ver a cobertura basta abrir o arquivo `coverage/index.html` no navegador e navegar entre as pastas/arquivos para ter mais detalhes.
+
+<img style="max-width: 600px" src="./docs/coverage.png" />
 
 ## ⚠ Informações importantes
 
