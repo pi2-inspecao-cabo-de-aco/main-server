@@ -192,6 +192,15 @@ test.serial('mutation --- Should update a analysis', async t => {
   t.is(res.image_path, '/dev/null')
 })
 
+test.serial('mutation --- Should throw an error trying to update a analysis', async t => {
+  let variables = {
+    id: '-1'
+  }
+  await t.throwsAsync(async t => {
+    await server(UPDATE_ANALYSIS, variables)
+  })
+})
+
 test.serial('mutation --- Should set a manual state analysis', async t => {
   let analysis = await knexInstance('analysis')
     .first()
@@ -208,6 +217,14 @@ test.serial('mutation --- Should set a manual state analysis', async t => {
   t.is(res.manual_state, newState)
 })
 
+test.serial('mutation --- Should throw an error trying to set a manual state analysis', async t => {
+  let variables = {
+    id: '-1'
+  }
+  await t.throwsAsync(async t => {
+    await server(SET_MANUAL_STATE, variables)
+  })
+})
 
 test.serial('mutation --- Should delete a analysis', async t => {
   let analysis = await knexInstance('analysis').first()
