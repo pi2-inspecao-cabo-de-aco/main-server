@@ -35,6 +35,21 @@ const INSERT_ANALYSIS = `
   }
 `
 
+const SET_MANUAL_STATE = `
+  mutation setAnalysisManualState (
+    $id: ID!
+    $state: String
+  ) {
+    setAnalysisManualState (
+      id: $id
+      state: $state
+    ) {
+      id
+      manual_state
+    }
+  }
+`
+
 const UPDATE_ANALYSIS = `
   mutation updateAnalysis (
     $id: ID!
@@ -177,6 +192,22 @@ test.serial('mutation --- Should update a analysis', async t => {
   t.is(res.image_path, '/dev/null')
 })
 
+test.serial('mutation --- Should set a manual state analysis', async t => {
+  let analysis = await knexInstance('analysis')
+    .first()
+    .returning('*')
+  let manualState = analysis.manual_state
+  let newState = 'Ruptura'
+  let variables = {
+    id: analysis.id,
+    state: newState
+  }
+
+  t.is(manualState, null)
+  let res = await server(SET_MANUAL_STATE, variables)
+  t.is(res.manual_state, newState)
+})
+
 
 test.serial('mutation --- Should delete a analysis', async t => {
   let analysis = await knexInstance('analysis').first()
@@ -203,7 +234,7 @@ test.serial('mutation --- Should throw an error trying to delete a analysis usin
   }
 
   let error = await t.throwsAsync(async () => {
-    await server(DELETE_ANALYSIS, variables) 
+    await server(DELETE_ANALYSIS, variables)
   }, Error)
   t.truthy(error.message.match('invalid input syntax'))
 })

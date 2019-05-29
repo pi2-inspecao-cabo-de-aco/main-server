@@ -35,7 +35,7 @@ export default {
         })
         .returning('*')
 
-      return analysis
+      return analysis[0]
     } catch (err) {
       throw new Error(err.message)
     }
