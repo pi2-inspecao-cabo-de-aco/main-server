@@ -23,6 +23,23 @@ export default {
       throw new Error(err.message)
     }
   },
+  setAnalysisManualState: async (root, { id, state }, context, info) => {
+    try {
+      let analysis = knexInstance('analysis')
+        .where({ id })
+
+      analysis = await analysis
+        .update({
+          manual_state: state,
+          updated_at: new Date()
+        })
+        .returning('*')
+
+      return analysis
+    } catch (err) {
+      throw new Error(err.message)
+    }
+  },
   deleteAnalysis: async (root, { id }, context, info) => {
     try {
       let count = await knexInstance('analysis')

@@ -34,6 +34,7 @@ type Analysis {
   position_end: String
   image_path: String
   state: String
+  manual_state: String
   report_id: ID
   cable_id: ID
   created_at: DateTime
@@ -61,6 +62,7 @@ type Mutation {
   deleteReport (id: ID!): Boolean
   createAnalysis (positionStart: Int, positionEnd: Int, reportId: ID, cableId: ID, imagePath: String): ID
   updateAnalysis (id: ID!, imagePath: String, state: String): Analysis
+  setAnalysisManualState (id: ID!, state: String): Analysis
   deleteAnalysis (id: ID!): Boolean
 }
 
