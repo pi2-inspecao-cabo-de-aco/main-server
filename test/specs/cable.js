@@ -85,7 +85,7 @@ test('query --- Shoud get cable based on id', async t => {
 
 test('query --- Should throw an error trying to get cable from non UUID param', async t => {
   let error = await t.throwsAsync(async () => {
-    await server(GET_CABLE, { id: 'wrongId' }) 
+    await server(GET_CABLE, { id: 'wrongId' })
   }, Error)
   t.truthy(error.message.match('invalid input syntax'))
 })
@@ -146,21 +146,21 @@ test.serial('mutation --- Should not create a cable with missing arguments', asy
 
   // for lifespan
   let error = await t.throwsAsync(async () => {
-    await server(INSERT_CABLE, variables0) 
+    await server(INSERT_CABLE, variables0)
   }, GraphQLError)
   let message = buildMessage('lifespan')
   t.is(error.message, message)
 
   // for size
   error = await t.throwsAsync(async () => {
-    await server(INSERT_CABLE, variables1) 
+    await server(INSERT_CABLE, variables1)
   }, GraphQLError)
   message = buildMessage('size')
   t.is(error.message, message)
 
   // for diameter
   error = await t.throwsAsync(async () => {
-    await server(INSERT_CABLE, variables2) 
+    await server(INSERT_CABLE, variables2)
   }, GraphQLError)
   message = buildMessage('diameter')
   t.is(error.message, message)
@@ -192,6 +192,16 @@ test.serial('mutation --- Should update a cable', async t => {
   t.is(res.general_state, 'Boa qualidade')
 })
 
+test.serial('mutation --- Should throw an error trying to update a cable', async t => {
+  let variables = {
+    id: '-1',
+    generalState: 'Má qualidade'
+  }
+  await t.throwsAsync(async t => {
+    await server(UPDATE_CABLE, variables)
+  })
+})
+
 test.serial('mutation --- Should delete a cable', async t => {
   let cable = await knexInstance('cables').first()
   let variables = {
@@ -209,7 +219,7 @@ test.serial('mutation --- Should throw an error trying to delete a cable with no
 
 
   let error = await t.throwsAsync(async () => {
-    await server(DELETE_CABLE, variables) 
+    await server(DELETE_CABLE, variables)
   }, Error)
   t.truthy(error.message.match('invalid input syntax'))
 })
