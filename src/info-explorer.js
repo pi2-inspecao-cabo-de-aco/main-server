@@ -6,6 +6,8 @@ import { exec } from 'child_process'
 import util from 'util'
 import { createAnalysis } from './helpers/analysis'
 
+const DISPLACEMENT = 50 // 50 means 5cm on real life
+
 async function unzipFile (filename) {
   let path = Path.resolve(__dirname, '../public', filename)
   let folder = path.replace('.zip', '')
@@ -29,7 +31,14 @@ async function infoControll (filename = '1557707265663-1.zip') {
       throw new Error(`------> Erro inesperado ao gerar imagem concatenada: ${stderr} <------`)
     }
     // TODO: use image size to calculate poitionStart and positionEnd
-    await createAnalysis({ positionStart: 0, positionEnd: 500, image_path: folder + '/merged-image.png' })
+    let treatedFilename = filename.replace('.zip', '') // remove .zip sufix
+    let robotPosition = parseInt(treatedFilename.split('-')[1])
+    let place = robotPosition * DISPLACEMENT
+    let position = {
+      positionStart: place - DISPLACEMENT,
+      positionEnd: place
+    }
+    await createAnalysis({ ...position, image_path: folder + '/merged-image.png' })
   }
 }
 

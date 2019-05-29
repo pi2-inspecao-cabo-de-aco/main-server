@@ -19,8 +19,8 @@ async function setPubSub (pubsub) {
   state.pubsub = pubsub
 }
 
-async function createAnalysis (cable) {
-  let { positionStart, positionEnd, reportId, cableId, imagePath } = cable
+async function createAnalysis (analysisObject) {
+  let { positionStart, positionEnd, reportId, cableId, imagePath } = analysisObject
   if (!reportId) {
     reportId = state.currentReport.id
   }
@@ -35,14 +35,15 @@ async function createAnalysis (cable) {
       report_id: reportId,
       cable_id: cableId
     }
-    let path = cable.image_path || imagePath
+    let path = analysisObject.image_path || imagePath
     if (path) {
       insertObj.image_path = path
     }
     let analysisId = await knexInstance('analysis')
       .returning('id')
       .insert(insertObj)
-    state.pubsub.publish('analysisWasCreated', { analysisWasCreated: insertObj })
+    let returnObj = Object.assign(insertObj, { cable: state.currentCable })
+    state.pubsub.publish('analysisWasCreated', { analysisWasCreated: returnObj })
     return analysisId[0]
   } catch (err) {
     throw new Error(err.message)

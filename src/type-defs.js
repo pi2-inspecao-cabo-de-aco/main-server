@@ -39,6 +39,7 @@ type Analysis {
   cable_id: ID
   created_at: DateTime
   updated_at: DateTime
+  cable: Cable
 }
 
 scalar Upload
