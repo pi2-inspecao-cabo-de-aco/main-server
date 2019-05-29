@@ -9,7 +9,7 @@ import { setCable, setReport } from './helpers/analysis'
 async function initFtpServer () {
   // REMOVE when set from frontend
   let cable = await knexInstance('cables').first()
-  let report = await knexInstance('reports').first()
+  let report = await knexInstance('reports').where({ cable_id: cable.id }).first()
   setCable(cable)
   setReport(report)
   let server = new FtpSrv({
