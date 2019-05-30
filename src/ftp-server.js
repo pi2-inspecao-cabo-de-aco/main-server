@@ -1,17 +1,8 @@
 import FtpSrv from 'ftp-srv'
 import config from './config'
 import { infoControll } from './info-explorer'
-import { knexInstance } from './db'
-
-// TODO: deletar quando não estiver utilizando mais o mock
-import { setCable, setReport } from './helpers/analysis'
 
 async function initFtpServer () {
-  // REMOVE when set from frontend
-  let cable = await knexInstance('cables').first()
-  let report = await knexInstance('reports').where({ cable_id: cable.id }).first()
-  setCable(cable)
-  setReport(report)
   let server = new FtpSrv({
     url: `ftp://${config.myIp}:30003`,
     pasv_url: '127.0.0.1'

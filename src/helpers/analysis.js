@@ -20,13 +20,9 @@ async function setPubSub (pubsub) {
 }
 
 async function createAnalysis (analysisObject) {
-  let { positionStart, positionEnd, reportId, cableId, imagePath } = analysisObject
-  if (!reportId) {
-    reportId = state.currentReport.id
-  }
-  if (!cableId) {
-    cableId = state.currentCable.id
-  }
+  let { positionStart, positionEnd, imagePath } = analysisObject
+  let reportId = state.currentReport.id
+  let cableId = state.currentCable.id
   try {
     let insertObj = {
       id: uuid(),
