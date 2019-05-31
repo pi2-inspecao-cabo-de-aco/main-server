@@ -24,12 +24,17 @@ export default {
       let cable = knexInstance('cables')
         .where({ id })
 
+      let newInfos = {
+        general_state: generalState,
+        updated_at: new Date()
+      }
+
+      if (lifespan) {
+        newInfos.lifespan = lifespan
+      }
+
       cable = await cable
-        .update({
-          lifespan: lifespan,
-          general_state: generalState,
-          updated_at: new Date()
-        })
+        .update(newInfos)
         .returning('*')
 
       return cable[0]
