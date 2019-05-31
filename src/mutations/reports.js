@@ -9,6 +9,7 @@ export default {
       let cable = await knexInstance('cables')
         .returning('*')
         .where({ id: cableId })
+
       setCable(cable[0])
 
       let report = await knexInstance('reports')
@@ -18,6 +19,7 @@ export default {
           start: new Date(),
           cable_id: cableId
         })
+
       setReport(report[0])
 
       return report[0].id
@@ -30,12 +32,17 @@ export default {
       let report = knexInstance('reports')
         .where({ id })
 
+      let newValues = {
+        end: new Date(),
+        updated_at: new Date()
+      }
+
+      if (alertLevel) {
+        newValues.alert_level = alertLevel
+      }
+
       report = await report
-        .update({
-          end: new Date(),
-          alert_level: alertLevel,
-          updated_at: new Date()
-        })
+        .update(newValues)
         .returning('*')
 
       return report[0]
