@@ -21,7 +21,7 @@ fsx.ensureDirSync(publicDir)
 import { initFtpServer } from './ftp-server'
 
 // Set global pubsub
-import { setPubSub } from './helpers/analysis'
+import { setPubSub } from './helpers/state'
 
 const sleep = (timeout) => (new Promise((resolve, reject) => (setTimeout(resolve, timeout))))
 

@@ -70,5 +70,6 @@ type Mutation {
 # Subscriptions
 type Subscription {
   analysisWasCreated: Analysis!
+  endCable: Int!
 }
 `
