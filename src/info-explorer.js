@@ -5,6 +5,7 @@ import unzip from 'unzipper'
 import { exec } from 'child_process'
 import util from 'util'
 import { createAnalysis } from './helpers/analysis'
+import { state } from './helpers/state'
 
 const DISPLACEMENT = 50 // 50 means 5cm on real life
 
@@ -32,11 +33,17 @@ async function infoControll (filename = '1557707265663-1.zip') {
     }
     // TODO: use image size to calculate poitionStart and positionEnd
     let treatedFilename = filename.replace('.zip', '') // remove .zip sufix
-    let robotPosition = parseInt(treatedFilename.split('-')[1])
+    let splits = treatedFilename.split('-')
+    let robotPosition = parseInt(splits[1])
     let place = robotPosition * DISPLACEMENT
     let position = {
       positionStart: place - DISPLACEMENT,
       positionEnd: place
+    }
+    if (splits.length === 3) { // check 'end' sufix
+      if (splits[2] === 'end') {
+        state.pubsub.publish('endCable', { endCable: place })
+      }
     }
     await createAnalysis({ ...position, image_path: folder + '/merged-image.png' })
   }
