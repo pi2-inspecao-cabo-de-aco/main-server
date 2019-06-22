@@ -26,6 +26,7 @@ type Report {
   created_at: DateTime
   updated_at: DateTime
   cable_id: ID
+  analysis: [Analysis]
 }
 
 type Analysis {
@@ -46,11 +47,13 @@ scalar Upload
 
 # Queries
 type Query {
+  analysis (id: ID!): Analysis
   cable (id: ID!): Cable
   cables: [Cable]
   report (id: ID!): Report
   reports (cableId: ID!): [Report]
   reportAnalysis(reportId: ID!): [Analysis]
+  reportComplete (id: ID!): Report
 }
 
 # Mutations
