@@ -1,5 +1,5 @@
 import { knexInstance } from '../db'
-import { setReport, setCable } from '../helpers/analysis'
+import { setReport, setCable } from '../helpers/state'
 
 import uuid from 'uuid/v4'
 

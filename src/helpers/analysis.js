@@ -1,26 +1,9 @@
 import { knexInstance } from '../db'
 import uuid from 'uuid/v4'
-
-let state = {
-  pubsub: null,
-  currentCable: null,
-  currentReport: null
-}
-
-async function setCable (cable) {
-  state.currentCable = cable
-}
-
-async function setReport (report) {
-  state.currentReport = report
-}
-
-async function setPubSub (pubsub) {
-  state.pubsub = pubsub
-}
+import { state } from './state'
 
 async function createAnalysis (analysisObject) {
-  let { positionStart, positionEnd, imagePath } = analysisObject
+  let { positionStart, positionEnd, imagePath, cableState } = analysisObject
   let reportId = state.currentReport.id
   let cableId = state.currentCable.id
   try {
@@ -29,7 +12,8 @@ async function createAnalysis (analysisObject) {
       position_start: positionStart,
       position_end: positionEnd,
       report_id: reportId,
-      cable_id: cableId
+      cable_id: cableId,
+      state: cableState
     }
     let path = analysisObject.image_path || imagePath
     if (path) {
@@ -47,9 +31,5 @@ async function createAnalysis (analysisObject) {
 }
 
 export {
-  state,
-  setCable,
-  setReport,
-  setPubSub,
   createAnalysis
 }

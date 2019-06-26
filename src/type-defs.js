@@ -36,6 +36,7 @@ type Analysis {
   image_path: String
   state: String
   manual_state: String
+  neural_net_state: String
   report_id: ID
   cable_id: ID
   created_at: DateTime
@@ -80,5 +81,6 @@ type Mutation {
 # Subscriptions
 type Subscription {
   analysisWasCreated: Analysis!
+  endCable: Int!
 }
 `
