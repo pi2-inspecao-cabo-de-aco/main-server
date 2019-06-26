@@ -29,6 +29,7 @@ services:
     stdin_open: true
     volumes:
       - ./:/server
+      - static-files:/server/public
       - /server/node_modules
 
 networks:
@@ -38,3 +39,4 @@ networks:
 
 volumes:
   db_data: {}
+  static-files:
