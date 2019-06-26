@@ -31,7 +31,6 @@ export default {
         .groupBy('reports.id')
         .first()
 
-      console.log(reportComplete)
       return reportComplete
     } catch (err) {
       throw new Error(err.message)
