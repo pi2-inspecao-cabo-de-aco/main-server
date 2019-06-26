@@ -56,7 +56,7 @@ async function main () {
       console.log('FTP server is running on ftp://localhost:30003')
       break
     } catch (err) {
-      console.err('Error on creating server.', err)
+      console.log('Error on creating server.', err)
       console.log('Retrying connection...')
       sleep(1000)
     }
