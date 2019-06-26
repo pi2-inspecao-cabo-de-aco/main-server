@@ -43,6 +43,12 @@ type Analysis {
   cable: Cable
 }
 
+type ReportStates {
+  normal: Int
+  danificado: Int
+  muitoDanificado: Int
+}
+
 scalar Upload
 
 # Queries
@@ -54,6 +60,7 @@ type Query {
   reports (cableId: ID!): [Report]
   reportAnalysis(reportId: ID!): [Analysis]
   reportComplete (id: ID!): Report
+  reportErrors (id: ID!): ReportStates
 }
 
 # Mutations

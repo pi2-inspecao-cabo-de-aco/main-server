@@ -31,7 +31,34 @@ export default {
         .groupBy('reports.id')
         .first()
 
+      console.log(reportComplete)
       return reportComplete
+    } catch (err) {
+      throw new Error(err.message)
+    }
+  },
+  reportErrors: async (root, { id }, context, info) => {
+    try {
+      let normal = await knexInstance('analysis')
+        .where('report_id', id)
+        .where('state', 'Normal')
+        .count()
+      let dan = await knexInstance('analysis')
+        .where('report_id', id)
+        .where('state', 'Danificado')
+        .count()
+      let muitoDan = await knexInstance('analysis')
+        .where('report_id', id)
+        .where('state', 'Muito danificado')
+        .count()
+      let result = {
+        normal: parseInt(normal[0].count),
+        danificado: parseInt(dan[0].count),
+        muitoDanificado: parseInt(muitoDan[0].count)
+      }
+      // console.log(muitoDan)
+      // console.log(normal)
+      return result
     } catch (err) {
       throw new Error(err.message)
     }
