@@ -8,7 +8,13 @@ type File {
 }
 
 type Command {
-  command: String!
+  command: Int!
+  status: String
+}
+
+type Download {
+  step: Int!
+  download: String!
 }
 
 type Cable {
@@ -66,7 +72,8 @@ type Query {
   reportAnalysis(reportId: ID!): [Analysis]
   reportComplete (id: ID!): Report
   reportErrors (id: ID!): ReportStates
-  command (command: String): Command
+  command (command: Int!): Command
+  downloadFolder (step: Int!): Download
 }
 
 # Mutations
