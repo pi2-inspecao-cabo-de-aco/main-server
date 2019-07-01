@@ -16,6 +16,7 @@
     "test": "NODE_ENV=testing yarn db:formatAndCreate && yarn test:run"
   },
   "dependencies": {
+    "child_process": "^1.0.2",
     "esm": "^3.2.6",
     "express": "^4.16.4",
     "fs-extra": "^7.0.1",

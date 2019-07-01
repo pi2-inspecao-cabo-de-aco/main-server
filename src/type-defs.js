@@ -7,6 +7,10 @@ type File {
   encoding: String!
 }
 
+type Command {
+  command: String!
+}
+
 type Cable {
   id: ID
   name: String
@@ -62,6 +66,7 @@ type Query {
   reportAnalysis(reportId: ID!): [Analysis]
   reportComplete (id: ID!): Report
   reportErrors (id: ID!): ReportStates
+  command (command: String): Command
 }
 
 # Mutations

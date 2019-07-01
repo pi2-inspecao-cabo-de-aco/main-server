@@ -2,6 +2,7 @@ import { GraphQLDateTime } from 'graphql-iso-date'
 import cableQueries from './queries/cables'
 import cableMutations from './mutations/cables'
 import reportQueries from './queries/reports'
+import commandQueries from './queries/commands'
 import reportMutations from './mutations/reports'
 import analysisQueries from './queries/analysis'
 import analysisMutations from './mutations/analysis'
@@ -12,7 +13,8 @@ export default {
   Query: {
     ...cableQueries,
     ...reportQueries,
-    ...analysisQueries
+    ...analysisQueries,
+    ...commandQueries
   },
   Mutation: {
     ...cableMutations,
