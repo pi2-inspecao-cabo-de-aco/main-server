@@ -17,4 +17,6 @@ RUN yarn install --prod=false
 
 COPY . /server/
 
+RUN gcc client_http.c -o client_http_prog
+
 CMD ["yarn", "start"]
