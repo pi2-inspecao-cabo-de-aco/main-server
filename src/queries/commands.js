@@ -4,8 +4,8 @@ export default {
   command: async (root, { command }, context, info) => {
     try {
       console.log('command=' + command)
-      let child = exec('gcc client_http.c -o client_http_prog', function (error, stdout, stderr) {
-      // let child = exec('./client_http_prog', function (error, stdout, stderr) {
+      // exec('gcc client_http.c -o client_http_prog', function (error, stdout, stderr) {
+      exec(`./client_http_prog ${command}`, function (error, stdout, stderr) {
         console.log('stdout: ' + stdout)
         console.log('stderr: ' + stderr)
         if (error !== null) {
@@ -20,7 +20,7 @@ export default {
   downloadFolder: async (root, { step }, context, info) => {
     try {
       console.log('step=' + step)
-      let terminalCommand = 'sshpass -p "ricas123" scp pi@192.168.4.1:/tmp/comp/' + step + '.tar /home/lucas/Documents/unb/'
+      let terminalCommand = 'sshpass -p "ricas123" scp pi@192.168.4.1:/tmp/comp/' + step + '.tar /home/lucas/Documents/robo-cabos/main-server/public'
       // console.log('command=' + terminalCommand)
       exec(terminalCommand, function (error, stdout, stderr) {
         console.log('stdout: ' + stdout)
