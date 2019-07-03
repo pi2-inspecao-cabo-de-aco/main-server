@@ -9,12 +9,22 @@ import readline from 'readline'
 
 const DISPLACEMENT = 50 // 50 means 5cm on real life
 const SENSOR_ERROR_VALUE = 20
+let datetime
 
 async function unzipFile (filename) {
-  let path = Path.resolve(__dirname, '../public', filename)
-  let folder = path.replace('.zip', '')
+  // 32.zip
+  let filenameNumbers = filename.replace('.zip', '')
+  let publicPath = Path.resolve(__dirname, '../public')
+  // path/public
+  let zipPath = Path.resolve(publicPath, filename)
+  // path/public/32.zip
+  datetime = Date.now()
+  let renamedFolder = `${datetime}-${(parseInt(filenameNumbers) / 32)}`
+  // 124124124-1
+  let folder = Path.resolve(publicPath, renamedFolder)
+  // path/public/121412414124-1
   await fsx.ensureDir(folder)
-  await fsx.createReadStream(path)
+  await fsx.createReadStream(zipPath)
   .pipe(
     unzip.Extract({ path: folder })
   )
@@ -64,8 +74,10 @@ async function infoControll (filename = '1557707265663-1.zip') {
       throw new Error(`------> Erro inesperado ao gerar imagem concatenada: ${stderr} <------`)
     }
     // TODO: use image size to calculate poitionStart and positionEnd
+
     let treatedFilename = filename.replace('.zip', '') // remove .zip sufix
-    let splits = treatedFilename.split('-')
+    let renamedFolder = `${datetime}-${(parseInt(treatedFilename) / 32)}`
+    let splits = renamedFolder.split('-')
     let robotPosition = parseInt(splits[1])
     let place = robotPosition * DISPLACEMENT
     let position = {
