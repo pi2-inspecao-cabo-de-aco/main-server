@@ -29,7 +29,7 @@ export default {
         updated_at: new Date()
       }
 
-      if (lifespan) {
+      if (lifespan !== null) {
         newInfos.lifespan = lifespan
       }
 
