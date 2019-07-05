@@ -36,12 +36,23 @@ import { exec } from 'child_process'
 import util from 'util'
 
 const execpromise = util.promisify(exec)
+let backup = {}
 
-async function main () {
+function resetBackup () {
+  backup = {}
+}
+
+let interval
+
+function removeInterval () {
+  clearInterval(interval)
+}
+
+async function watchFiles () {
   const TMP_PATH = '/tmp/comp'
-  const RICAS_IP = 'pi@192.168.4.1'
+  const RICAS_IP = 'pi@192.168.1.1'
   const RICAS_PASS = 'ricas123'
-  const LOCAL_PATH = '/home/vitor/Projects/unb/pi2/main-server/public/'
+  const LOCAL_PATH = '/home/thiago/Desktop/UnB/pi2/main-server/public/'
 
   console.log('----------> Executando comando de identificar arquivos gerados')
   try {
@@ -50,7 +61,6 @@ async function main () {
       console.log(stderr)
     }
 
-    let backup = {}
     let values = stdout.split('\n') // get filenames as array
     for (let i of values) {
       if (i.length > 0) {
@@ -64,7 +74,7 @@ async function main () {
     }
 
     // interval to check new files
-    setInterval(async () => {
+    interval = setInterval(async () => {
       // get new list
       let { stdout, stderr } = await execpromise(`sshpass -p ${RICAS_PASS} ssh ${RICAS_IP} ls ${TMP_PATH}`)
       if (stderr) {
@@ -72,7 +82,7 @@ async function main () {
       }
       let array = stdout.split('\n') // get filenames as array
       let newFilename = array.find(c => !backup[c]) // file new value
-      if (newFilename) {
+      if (newFilename && newFilename.includes('.zip')) {
         console.log(`--------------> Novo arquivo identificado: ${newFilename}. Copiando arquivo`)
         console.log(`--------------> Copiando....`)
         backup[newFilename] = newFilename // set new value as backup
@@ -81,14 +91,21 @@ async function main () {
         console.log(`--------------> Arquivo copiado.`)
         await infoControll(newFilename)
       }
+
+      if (newFilename && newFilename.includes('.txt')) {
+        console.log(`--------------> Fim de curso identificado: ${newFilename}.`)
+        backup[newFilename] = newFilename
+        await infoControll(newFilename)
+      }
     }, 5000)
   } catch (err) {
     console.log(err)
   }
 }
 
-main().then().catch()
-
 export {
-  initFtpServer
+  watchFiles,
+  initFtpServer,
+  resetBackup,
+  removeInterval
 }

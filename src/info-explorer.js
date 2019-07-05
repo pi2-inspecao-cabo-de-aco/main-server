@@ -63,7 +63,7 @@ async function checkCableState (PATH) {
 }
 
 async function infoControll (filename = '1557707265663-1.zip') {
-  if (filename) {
+  if (filename && filename.includes('.zip')) {
     let folder = await unzipFile(filename)
 
     // Executing python script to cocatenate images
@@ -84,15 +84,14 @@ async function infoControll (filename = '1557707265663-1.zip') {
       positionStart: place - DISPLACEMENT,
       positionEnd: place
     }
-    if (splits.length === 3) { // check 'end' sufix
-      if (splits[2] === 'end') {
-        state.pubsub.publish('endCable', { endCable: place })
-      }
-    }
 
     const SENSORS_REPORT_PATH = Path.resolve(folder, 'data.txt')
     let cableState = await checkCableState(SENSORS_REPORT_PATH)
     await createAnalysis({ ...position, image_path: '/public/' + renamedFolder + '/merged-image.png', cableState })
+  }
+
+  if (filename && filename.includes('.txt')) {
+    state.pubsub.publish('endCable', { endCable: true })
   }
 }
 
