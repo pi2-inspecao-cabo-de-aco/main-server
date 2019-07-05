@@ -4,8 +4,8 @@ import { state } from './state'
 
 async function createAnalysis (analysisObject) {
   let { positionStart, positionEnd, imagePath, cableState } = analysisObject
-  let reportId = 'b55de8a6-4449-4abc-94bb-36a0e948bed8' // state.currentReport.id
-  let cableId = '9a00448c-0fd0-4e07-92fc-102590077d54' // state.currentCable.id
+  let reportId = state.currentReport.id
+  let cableId = state.currentCable.id
   try {
     let insertObj = {
       id: uuid(),

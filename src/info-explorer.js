@@ -92,7 +92,7 @@ async function infoControll (filename = '1557707265663-1.zip') {
 
     const SENSORS_REPORT_PATH = Path.resolve(folder, 'data.txt')
     let cableState = await checkCableState(SENSORS_REPORT_PATH)
-    await createAnalysis({ ...position, image_path: folder + '/merged-image.png', cableState })
+    await createAnalysis({ ...position, image_path: '/public/' + renamedFolder + '/merged-image.png', cableState })
   }
 }
 

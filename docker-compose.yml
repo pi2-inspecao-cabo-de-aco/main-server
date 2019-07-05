@@ -6,31 +6,33 @@ services:
     restart: always
     volumes:
       - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_DB: "main-server_development"
-    networks:
-      - pi2
+      # networks:
+      # - pi2
 
-  server:
-    build:
-      context: .
-    environment:
-      NODE_ENV: development
-      MY_IP: server
-      PG_HOST: postgres
-      PG_USER: "postgres"
-    ports:
-      - "4000:4000"
-      - "30003:30003"
-    networks:
-      - pi2
-    depends_on:
-      - "postgres"
-    stdin_open: true
-    volumes:
-      - ./:/server
-      - static-files:/server/public
-      - /server/node_modules
+        # server:
+        #   build:
+        #     context: .
+        #   environment:
+        #     NODE_ENV: development
+        #     MY_IP: server
+        #     PG_HOST: postgres
+        #     PG_USER: "postgres"
+        #   ports:
+        #     - "4000:4000"
+        #     - "30003:30003"
+        #   networks:
+        #     - pi2
+        #   depends_on:
+        #     - "postgres"
+        #   stdin_open: true
+        #   volumes:
+        #     - ./:/server
+        #     - static-files:/server/public
+        #     - /server/node_modules
 
 networks:
   pi2:
