@@ -8,8 +8,9 @@ arguments = sys.argv
 arguments.pop(0)
 # get folder name and remove it from args
 image_folder = arguments[0]
-
-cam_images = glob.glob(image_folder + '/*.png')
+print(image_folder)
+cam_images = glob.glob(image_folder + '/*.jpg')
+print(cam_images)
 cam_images = filter(lambda img: not 'merged-image' in img, cam_images)
 images = list(map(Image.open, cam_images))
 # pick the image which is the smallest, and resize the others to match it (can be arbitrary image shape here)

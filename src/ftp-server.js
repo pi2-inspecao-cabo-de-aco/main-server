@@ -50,9 +50,9 @@ function removeInterval () {
 
 async function watchFiles () {
   const TMP_PATH = '/tmp/comp'
-  const RICAS_IP = 'pi@192.168.1.1'
+  const RICAS_IP = 'pi@192.168.4.1'
   const RICAS_PASS = 'ricas123'
-  const LOCAL_PATH = '/home/thiago/Desktop/UnB/pi2/main-server/public/'
+  const LOCAL_PATH = '/home/vitor/Projects/unb/pi2/main-server/public/'
 
   console.log('----------> Executando comando de identificar arquivos gerados')
   try {
